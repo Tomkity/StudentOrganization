@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-1-21 13:46:58 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.lzf.bean.Club" table="club" catalog="studentorganization">
+        <id name="clubId" type="java.lang.Integer">
+            <column name="clubId" />
+            <generator class="identity" />
+        </id>
+        <property name="clubName" type="string">
+            <column name="clubName" length="100" not-null="true" />
+        </property>
+        <property name="clubMessage" type="string">
+            <column name="clubMessage" length="500" not-null="true" />
+        </property>
+        <property name="activeTime" type="timestamp">
+            <column name="activeTime" length="19" not-null="true" />
+        </property>
+        <set name="users" table="user_club" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="clubId" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.lzf.bean.User">
+                <column name="userId" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="actives" table="club_active" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="clubId" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.lzf.bean.Active">
+                <column name="activeId" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
